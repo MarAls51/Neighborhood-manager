@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
 } from "react";
-import { StyleSheet, Text, View, Image,SafeAreaView} from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 import { auth } from "../firebase/firebase";
 import firebase from "firebase";
@@ -15,7 +15,7 @@ export function chatscreen(props) {
     return null;
   }
   let uid = users.group;
-  const [groupPhoto, setGroupPhoto] = useState(null)
+  const [groupPhoto, setGroupPhoto] = useState(null);
   const [messages, setMessages] = useState([]);
   useLayoutEffect(() => {
     const unsubscribe = firebase
@@ -90,14 +90,34 @@ export function chatscreen(props) {
     .then((snapshot) => {
       setGroupPhoto(snapshot.data().profilePictureUID);
     });
-    //<Image source = {{uri: groupPhoto}}style={{backgroundColor: 'blue' }}></Image>
   return (
-<SafeAreaView style = {{alignItems: 'center',flex: 1,backgroundColor: "#fff"}}>
-    <View style = {{width : "100%",height : 180,justifyContent: 'center', fontWeight : 30,flex: 1}}>
-    <Image source = {{uri: groupPhoto}}style={{padding: 20, width: "100%", height: 230, top: 20}}></Image>
-</View>
-    <View style = {{flex: 3, backgroundColor: "#fff",borderTopLeftRadius: 45, borderTopRightRadius: 45, width: '100%'}}>
-    <GiftedChat
+    <SafeAreaView
+      style={{ alignItems: "center", flex: 1, backgroundColor: "#fff" }}
+    >
+      <View
+        style={{
+          width: "100%",
+          height: 180,
+          justifyContent: "center",
+          fontWeight: 30,
+          flex: 1,
+        }}
+      >
+        <Image
+          source={{ uri: groupPhoto }}
+          style={{ padding: 20, width: "100%", height: 230, top: 20 }}
+        ></Image>
+      </View>
+      <View
+        style={{
+          flex: 3,
+          backgroundColor: "#fff",
+          borderTopLeftRadius: 45,
+          borderTopRightRadius: 45,
+          width: "100%",
+        }}
+      >
+        <GiftedChat
           messages={messages}
           renderUsernameOnMessage={true}
           onSend={(messages) => onSend(messages)}
@@ -109,11 +129,10 @@ export function chatscreen(props) {
             avatar: profileAvatar,
           }}
         />
-    </View>
-</SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   logo: {

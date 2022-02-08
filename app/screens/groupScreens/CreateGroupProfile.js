@@ -6,8 +6,8 @@ import firebase from "firebase";
 import { fetchUser } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
-export function firstTimeRegister({ navigation, route }) {
-    const dispatch = useDispatch()
+export function firstTimeRegister({ route }) {
+  const dispatch = useDispatch();
   let uid = route.params.group;
   const [image, setImage] = useState(null);
   useEffect(() => {
@@ -35,7 +35,7 @@ export function firstTimeRegister({ navigation, route }) {
       });
       dispatch(fetchUser());
     }
-  }
+  };
   return (
     <View style={{ alignItems: "center", flex: 1, backgroundColor: "#ffff00" }}>
       <View

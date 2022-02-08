@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 import AppTextInput from "../misc/AppTextInput";
 import { Formik } from "formik";
@@ -19,13 +14,12 @@ import { fetchGroupListings } from "../../redux/actions/actions";
 const validationSchema = Yup.object().shape({
   groupname: Yup.string().required().min(32).max(32),
 });
-export function firstTimeRegister({ navigation, user,usersG, listings}) {
-  const dispatch = useDispatch()
+export function firstTimeRegister({ navigation, user, usersG, listings }) {
+  const dispatch = useDispatch();
   const [theGroup, setTheGroup] = useState(null);
   const handleProfile = async (values) => {
-    console.log(user.zipCode, " the zipcode")
     const groupID = values.groupname;
-   await firebase
+    await firebase
       .firestore()
       .collection("groups")
       .doc(groupID ? groupID : "user not logged")
@@ -33,33 +27,31 @@ export function firstTimeRegister({ navigation, user,usersG, listings}) {
       .then((snapshot) => {
         if (snapshot.exists) {
           if (snapshot.data().zipCode === user.zipCode) {
-            console.log(snapshot.data().zipCode, " enter data")
-            console.log(user.zipCode, " enter user")
-              firebase
-                .firestore()
-                .collection("users")
-                .doc(auth.currentUser.uid)
-                .update({
-                  group: groupID,
-                });
-              firebase
-                .firestore()
-                .collection("groups")
-                .doc(groupID)
-                .collection("users")
-                .add({
-                  email: user.email,
-                  profilePictureUID: user.profilePictureUID,
-                  username: user.username,
-                  group: groupID,
-                  address: null,
-                });
-                dispatch(fetchGroupUsers(groupID))
-                dispatch(fetchGroupListings(groupID))
-                dispatch(fetchUser())
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(auth.currentUser.uid)
+              .update({
+                group: groupID,
+              });
+            firebase
+              .firestore()
+              .collection("groups")
+              .doc(groupID)
+              .collection("users")
+              .add({
+                email: user.email,
+                profilePictureUID: user.profilePictureUID,
+                username: user.username,
+                group: groupID,
+                address: null,
+              });
+            dispatch(fetchGroupUsers(groupID));
+            dispatch(fetchGroupListings(groupID));
+            dispatch(fetchUser());
           } else {
-            console.log(snapshot.data().zipCode, " exit data")
-            console.log(user.zipCode, " exit user")
+            console.log(snapshot.data().zipCode, " exit data");
+            console.log(user.zipCode, " exit user");
             console.log("does not exist 2");
           }
         } else {
@@ -182,7 +174,7 @@ const styles = StyleSheet.create({
 const mapStateToProp = (store) => ({
   user: store.userState.currentUser,
   usersG: store.userState.usersG,
-  listings: store.userState.listings
+  listings: store.userState.listings,
 });
 
 export default connect(mapStateToProp)(firstTimeRegister);

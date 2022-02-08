@@ -12,8 +12,6 @@ import { useDispatch } from "react-redux";
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(4).max(15),
   info: Yup.string().required().min(4).max(50),
-//   location: Yup.string().required().min(4).max(20),
-//   duration: Yup.string().required().min(4).max(20),
 });
 
 export function createListing({ navigation, user }) {
@@ -21,8 +19,6 @@ export function createListing({ navigation, user }) {
   const handleProfile = async (values) => {
       const title = values.title
       const info = values.info
-     // const location = values.location
-     // const duration = values.duration
     firebase
       .firestore()
       .collection("groups")
@@ -32,7 +28,6 @@ export function createListing({ navigation, user }) {
         info: info,
         user: user.username,
         title: title,
-        // location: location
       });
     dispatch(fetchGroupEvents(user.group))
     navigation.navigate("eventScreen");
@@ -110,23 +105,6 @@ export function createListing({ navigation, user }) {
                   {errors.title}{" "}
                 </Text>
               )}
-              {/* <AppTextInput
-                placeholder="location"
-                style={{
-                  borderBottomWidth: 1.0,
-                  width: "75%",
-                  fontSize: 30,
-                  top: 100,
-                }}
-                value={values.info}
-                onBlur={() => setFieldTouched("location")}
-                onChangeText={handleChange("location")}
-              />
-              {touched.info && (
-                <Text style={{ color: "red", top: 110, left: 30 }}>
-                  {errors.info}{" "}
-                </Text>
-              )}               */}
               <AppTextInput
               placeholder="info"
               style={{

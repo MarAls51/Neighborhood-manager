@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
     .max(5),
 });
 export function firstTimeRegister({ navigation, user }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleProfile = async (values) => {
     const groupname = values.groupname;
     const zipCode = values.zipcode;
@@ -41,9 +41,9 @@ export function firstTimeRegister({ navigation, user }) {
       admin: auth.currentUser.uid,
     });
     firebase.firestore().collection("users").doc(auth.currentUser.uid).update({
-        group: hashValue,
-      });
-      firebase
+      group: hashValue,
+    });
+    firebase
       .firestore()
       .collection("groups")
       .doc(hashValue)
@@ -55,9 +55,9 @@ export function firstTimeRegister({ navigation, user }) {
         username: user.username,
         group: hashValue,
         address: null,
-      })
-      dispatch(fetchGroupUsers(hashValue))
-      firebase
+      });
+    dispatch(fetchGroupUsers(hashValue));
+    firebase
       .firestore()
       .collection("groups")
       .doc(hashValue)
@@ -68,9 +68,9 @@ export function firstTimeRegister({ navigation, user }) {
         user: user.username,
         title: "event",
         id: "2351",
-        location: "africa"
-      })
-      dispatch(fetchGroupEvents(hashValue))
+        location: "africa",
+      });
+    dispatch(fetchGroupEvents(hashValue));
     navigation.navigate("CreateGroupProfile", { group: hashValue });
   };
   return (

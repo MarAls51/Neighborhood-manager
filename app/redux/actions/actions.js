@@ -67,7 +67,6 @@ export function fetchGroupListings(group)
         let usernamesArray = []
         docs.forEach((snapshot) => {
             usernamesArray.push(snapshot.data())
-            console.log(snapshot.data())
         });
         dispatch({type : USER_FETCH_GROUP_DATA_LISTINGS, listings: usernamesArray});
       });

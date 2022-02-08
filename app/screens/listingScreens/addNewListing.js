@@ -1,11 +1,11 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 import AppTextInput from "../misc/AppTextInput";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import firebase from "firebase";
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 import { connect } from "react-redux";
 import { fetchGroupListings } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
@@ -15,12 +15,11 @@ const validationSchema = Yup.object().shape({
 });
 export function createListing({ navigation, user }) {
   const dispatch = useDispatch();
-  const [location, setLocation] = useState(null)
+  const [location, setLocation] = useState(null);
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('memes');
+      if (status !== "granted") {
         return;
       }
       let location = await Location.getCurrentPositionAsync({});
@@ -28,10 +27,10 @@ export function createListing({ navigation, user }) {
     })();
   }, []);
   const handleProfile = async (values) => {
-      const title = values.title
-      const info = values.info
-   const locationLatitude = location.coords.latitude
-    const locationLongitude = location.coords.longitude
+    const title = values.title;
+    const info = values.info;
+    const locationLatitude = location.coords.latitude;
+    const locationLongitude = location.coords.longitude;
     firebase
       .firestore()
       .collection("groups")
@@ -41,9 +40,9 @@ export function createListing({ navigation, user }) {
         title: title,
         info: info,
         latitude: locationLatitude,
-        longitude: locationLongitude
+        longitude: locationLongitude,
       });
-      dispatch(fetchGroupListings(user.group))
+    dispatch(fetchGroupListings(user.group));
     navigation.navigate("listing");
   };
   return (
