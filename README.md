@@ -1,2 +1,2 @@
 # ReactNativeMobileApp
-react native mobile application with redux for state management 
+react native mobile application
