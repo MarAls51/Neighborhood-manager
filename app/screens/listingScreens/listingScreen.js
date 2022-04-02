@@ -13,7 +13,6 @@ import { connect } from "react-redux";
 const height = Dimensions.get("window").height;
 export function Map({ listings, navigation }) {
   const Item = ({ title, longitude, latitude, info }) => (
-    console.log("working"),
     (
       <MapView.Marker
         coordinate={{ latitude: latitude, longitude: longitude }}
